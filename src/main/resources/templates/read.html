@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <script th:src="@{/starrr.js}"></script>
+        <link th:href="@{/css/starrr.css}" rel="stylesheet">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+        <script th:inline="javascript">
+            $(document).ready(function(e) {
+                var rpoint = 0;
+                var bno = [[${dto.bno}]];
+
+                $('.starrr').starrr({
+                    rating: rpoint,
+                    change: function(e, value) {
+                        if (value) {
+                            console.log(value);
+                            rpoint = value;
+                        }
+                    }
+                });
+
+               //$(".replyModal").modal("show"); // 모달형태 미리보기용
+
+               var replyModal = $(".replyModal");
+               var inputMno = $('input[name="mno"]');
+               var inputRreply = $('input[name="rreply"]');
+
+               $(".addReplyBtn").click(function() {
+                    inputMno.val("");
+                    inputRreply.val("");
+
+                    $(".removeBtn, .modifyBtn").hide();
+                    $(".replySaveBtn").show();
+
+                    replyModal.modal('show');
+               });
+
+               $('.replySaveBtn').click(function() {
+                    var data = {bno:bno, rpoint:rpoint, rreply:inputRreply.val(), mno: inputMno.val()};
+                    console.log(data);
+
+                    $.ajax({
+                        url: '/replies/'+ bno,
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function(result) {
+                            console.log("result: " + result);
+                            self.location.reload();
+                        }
+                    })
+                    replyModal.modal('hide');
+               });
+
+               function getBookReplies() {
+                    function formatTime(str) {
+                        var date = new Date(str);
+
+                        return date.getFullYear() + '/' +
+                             (date.getMonth() +1) + '/' +
+                             date.getDate() + ' ' +
+                             date.getHours() + ':' +
+                             date.getMinutes();
+                    }
+
+                   $.getJSON("/replies/" + bno + "/all", function(arr) {
+                        var str = "";
+
+                        $.each(arr, function(idx, reply) {
+                            console.log(reply);
+
+                            str += '    <div class="card-body" data-rno=' + reply.rno + ' data-mno=' + reply.mno + '>';
+                            str += '    <h5 class="card-title">' + reply.rreply + ' <span>' + reply.rpoint + '</span></h5>';
+                            str += '    <h6 class="card-subtitle mb-2 text-muted">' + reply.mid + '</h6>';
+                            str += '    <p class="card-text">' + formatTime(reply.regDate) + '</p>';
+                            str += '    </div>';
+                        });
+                        $(".replyList").html(str);
+                   });
+               }
+               getBookReplies();
+
+               var rno;
+               $(".replyList").on("click", ".card-body", function() {
+                    $(".replySaveBtn").hide();
+                    $(".removeBtn , .modifyBtn").show();
+
+                    var targetReply = $(this);
+
+                    rno = targetReply.data("rno");
+                    console.log("Rno: " + rno);
+                    inputMno.val(targetReply.data("mno"));
+                    inputRreply.val(targetReply.find('.card-title').clone().children().remove().end().text());
+
+                    var rpoint = targetReply.find('.card-title span').html();
+                    $(".starrr a:nth-child(" + rpoint + ")").trigger('click');
+
+                    $('.replyModal').modal('show');
+               });
+
+               $(".modifyBtn").on("click", function() {
+                    var data = {rno: rno, bno: bno, rpoint: rpoint, rreply:inputRreply.val(), mno: inputMno.val()}
+                    console.log(data);
+
+                    $.ajax({
+                        url: '/replies/'+ bno + "/" + rno,
+                        type:"PUT",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function(result) {
+                            console.log("result: " + result);
+                            self.location.reload();
+                        }
+                    })
+                    replyModal.modal('hide');
+               });
+
+               $(".removeBtn").on("click", function() {
+                    var data = {rno:rno}
+                    console.log(data);
+
+                    $.ajax({
+                        url: '/replies/'+ bno + "/" + rno,
+                        type:"DELETE",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function(result) {
+                            console.log("result: " + result);
+                            self.location.reload();
+                        }
+                    })
+                    replyModal.modal('hide');
+               });
+
+               $(".uploadResult").click(function() {
+                    var file = $(this).data('file');
+                    console.log(file);
+
+                    $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName=" + file + "&size=1' >")
+                    $(".imageModal").modal("show");
+               });
+
+               $('.addCartBtn').click(function() {
+                    var cqty = $('input[name="cqty"]').val();
+                    var data = {bno:bno, cqty:cqty, mno: 50};
+                    console.log(data);
+
+                    $.ajax({
+                        url: '/cart/'+ mno,
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function(result) {
+                            console.log("result: " + result);
+                            self.location.reload();
+                        }
+                    })
+               });
+
+            });
+        </script>
+
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Default</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                    <div class="product-details-top">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                        <figure class="product-main-image uploadResult" th:data-file="${dto.imageDTOList.getThumbnailURL()}" >
+                                            <img id="product-zoom" th:src="|/display?fileName=${dto.imageDTOList.getImageURL()}|" alt="product image">
+                                           <!-- <img id="product-zoom" th:src="@{/assets/images/products/single/1.jpg}" data-zoom-image="@{/assets/images/products/single/1-big.jpg}" alt="product image">-->
+                                        </figure><!-- End .product-main-image -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .product-gallery -->
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6">
+                                <div class="product-details">
+                                    <h1 class="product-title">[[${dto.btitle}]]</h1><!-- End .product-title -->
+
+                                    <div class="ratings-container">
+                                        <img th:src="@{/star/star3_fill.png}" width="20px" height="20px">&ensp; [[${dto.avg}]]<!-- End .ratings-val -->
+                                        <a class="ratings-text" href="#product-review-link" id="review-link">( [[${dto.replyCnt}]] Reviews )</a>
+                                    </div><!-- End .rating-container -->
+
+                                    <div>
+                                        <p>출판사: [[${dto.bpublisher}]]</p>
+                                        <p>저자: [[${dto.bauthor}]]</p>
+                                        <p>ISBN: [[${dto.bisbn}]]</p>
+                                    </div>
+                                    <br>
+
+                                    <div class="product-price">
+                                        [[${dto.bprice}]] 원
+                                    </div><!-- End .product-price -->
+
+                                    <div class="product-content">
+                                        <p>[[${dto.bsummary}]]</p>
+                                    </div><!-- End .product-content -->
+
+
+                                    <form action="/cart" method="post">
+                                        <div class="details-filter-row details-row-size">
+                                            <label for="qty">Qty:</label>
+                                            <div class="product-details-quantity">
+                                                <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required name="cqty">
+                                            </div><!-- End .product-details-quantity -->
+                                        </div><!-- End .details-filter-row -->
+
+                                        <div class="product-details-action">
+                                            <input type="hidden" name="bno">
+                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        </div><!-- End .product-details-action -->
+                                    </form>
+
+                                        <div class="product-details-footer">
+                                            <div class="product-cat">
+                                                <a th:href="@{/modify(bno=${dto.bno},page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
+                                                    <button type="button" class="btn btn-primary">Modify</button>
+                                                </a>
+                                            </div><!-- End .product-cat -->
+
+                                        </div><!-- End .product-details-footer -->
+                                </div><!-- End .product-details -->
+                            </div><!-- End .col-md-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .product-details-top -->
+
+                    <div class="product-details-tab">
+                        <ul class="nav nav-pills justify-content-center" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="true">Reviews ([[${dto.replyCnt}]])</a>
+                            </li>
+                        </ul>
+
+                        <button sec:authorize="isAuthenticated()" type="button" class="btn btn-info addReplyBtn">Review Register</button>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
+                                <div class="reviews replyList" >
+                                    <h3>Reviews ([[${dto.replyCnt}]])</h3>
+
+<!--                                    <div class="review">-->
+<!--                                        <div class="row no-gutters">-->
+<!--                                            <div class="col-auto">-->
+<!--                                                <h4><a href="#">Samanta J.</a></h4>-->
+<!--                                                <div class="ratings-container">-->
+<!--                                                    <div class="ratings">-->
+<!--                                                        <div class="ratings-val" style="width: 80%;"></div>&lt;!&ndash; End .ratings-val &ndash;&gt;-->
+<!--                                                    </div>&lt;!&ndash; End .ratings &ndash;&gt;-->
+<!--                                                </div>&lt;!&ndash; End .rating-container &ndash;&gt;-->
+<!--                                                <span class="review-date">6 days ago</span>-->
+<!--                                            </div>&lt;!&ndash; End .col &ndash;&gt;-->
+<!--                                            <div class="col">-->
+<!--                                                <h4>Good, perfect size</h4>-->
+
+<!--                                                <div class="review-content">-->
+<!--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum dolores assumenda asperiores facilis porro reprehenderit animi culpa atque blanditiis commodi perspiciatis doloremque, possimus, explicabo, autem fugit beatae quae voluptas!</p>-->
+<!--                                                </div>&lt;!&ndash; End .review-content &ndash;&gt;-->
+<!--                                            </div>&lt;!&ndash; End .col-auto &ndash;&gt;-->
+<!--                                        </div>&lt;!&ndash; End .row &ndash;&gt;-->
+                                    </div><!-- End .review -->
+
+                                </div><!-- End .reviews -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .product-details-tab -->
+                 </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Sticky Bar -->
+    <div class="sticky-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <figure class="product-media">
+                        <a ref="product.html">
+                            <img th:src="|/display?fileName=${dto.imageDTOList.getThumbnailURL()}|" alt="Product image">
+                        </a>
+                    </figure><!-- End .product-media -->
+                    <h4 class="product-title"><a>[[${dto.btitle}]]</a></h4><!-- End .product-title -->
+                </div><!-- End .col-6 -->
+
+                <div class="col-6 justify-content-end">
+                    <div class="product-price">
+                        [[${dto.bprice}]] 원
+                    </div><!-- End .product-price -->
+
+                    <form action="/cart" method="post">
+                        <div class="product-details-quantity">
+                            <input type="hidden" name="bno">
+                            <input name="cqty" type="number" id="sticky-cart-qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                        </div><!-- End .product-details-quantity -->
+
+                        <div class="product-details-action">
+                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                        </div><!-- End .product-details-action -->
+                    </form>
+                </div><!-- End .col-6 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .sticky-bar -->
+
+        <div class="replyModal modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> Book Review</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>&ensp; Reviewer ID</label>
+                            <input type="text" class="form-control" name="mno">
+                            <input type="hidden" class="mno" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>&ensp; Rating <span class="rpoint"></span></label>
+                            <div class="starrr"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>&ensp; Reply</label>
+                            <input type="text" class="form-control" name="rreply" placeholder="감상을 적어주세요!">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary replySaveBtn">Save</button>
+                        <button type="button" class="btn btn-warning modifyBtn">Modify</button>
+                        <button type="button" class="btn btn-danger removeBtn">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="imageModal modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Picture</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</th:block>
+</th:block>
+<!-- molla/read.html  22 Nov 2019 09:55:05 GMT -->
+</html>

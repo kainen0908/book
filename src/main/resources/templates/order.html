@@ -1,0 +1,19 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <div style="margin:auto;text-align:center;">
+            <form method="post">
+                <h1>주문 페이지</h1>
+                <div>
+                    <input type="submit" value="주문하기">
+                </div>
+                <div style="margin-top: 20px">
+                    <a th:href="@{/payment/{orderUid} (orderUid=${orderUid})}">결제 페이지로 이동</a>
+                </div>
+                <p th:text="${message}"></p>
+            </form>
+        </div>
+    </th:block>
+</th:block>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('../static/assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">List<span>Shop</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">List</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                	<div class="row">
+                		<div class="col-lg-9">
+                			<div class="toolbox">
+                				<div class="toolbox-left">
+                					<div class="toolbox-info">
+                					</div><!-- End .toolbox-info -->
+                				</div><!-- End .toolbox-left -->
+
+                				<div sec:authorize="hasRole('ADMIN')" class="toolbox-right">
+                                    <a sec:authorize="hasRole('ADMIN')" href="/register"><button>Register</button></a>
+                                </div><!-- End .toolbox-right -->
+                			</div><!-- End .toolbox -->
+
+                            <div class="products mb-3">
+                                <div class="product product-list" th:each="dto: ${result.dtoList}">
+                                    <div class="row">
+                                        <div class="col-6 col-lg-3">
+                                            <figure class="product-media">
+                                                <a th:href="@{/read(bno=${dto.bno}, page=${result.page})}">
+                                                    <img alt="Product image" class="product-image" th:if="${dto.imageDTOList != null}"
+                                                         th:src="|/display?fileName=${dto.imageDTOList.getThumbnailURL()}|">
+                                                </a>
+                                            </figure><!-- End .product-media -->
+                                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                                        <div class="col-6 col-lg-3 order-lg-last">
+                                            <div class="product-list-action">
+                                                <div class="product-price">
+                                                    [[${dto.bprice}]] 원
+                                                </div><!-- End .product-price -->
+                                                <div class="ratings-container">
+                                                    <img th:src="@{/star/star3_fill.png}" width="20px" height="20px">&ensp; [[${dto.avg}]]<!-- End .ratings-val -->
+                                                    <br>
+                                                    <span class="ratings-text">( [[${dto.replyCnt}]] Reviews )</span>
+                                                </div><!-- End .rating-container -->
+
+                                                <div class="product-action">
+                                                </div><!-- End .product-action -->
+
+                                                <a href="/cart" class="btn-product btn-cart"><span>add to cart</span></a>
+                                            </div><!-- End .product-list-action -->
+                                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                                        <div class="col-lg-6">
+                                            <div class="product-body product-action-inner">
+                                                <div class="product-cat">
+                                                    <a>[[${dto.bauthor}]]</a>
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title"><a th:href="@{/read(bno=${dto.bno}, page=${result.page})}">[[${dto.btitle}]]</a></h3><!-- End .product-title -->
+
+                                                <div class="product-content">
+                                                    <p>[[${dto.bsummary}]]</p>
+                                                </div><!-- End .product-content -->
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .col-lg-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .product -->
+                            </div><!-- End .products -->
+
+                			<nav aria-label="Page navigation">
+                                <ul class="pagination h-100 justify-content-center align-items-center">
+                                    <li class="page-item" th:if="${result.prev}">
+                                        <a class="page-link" th:href="@{/list(page=${result.start-1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword}, category=${pageRequestDTO.category})}" tabindex="-1">Previous</a>
+                                    </li>
+                                    <li th:class="'page-item ' + ${result.page == page?'active':''}" th:each="page:${result.pageList}">
+                                        <a class="page-link" th:href="@{/list(page=${page}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword}, category=${pageRequestDTO.category})}">[[${page}]]</a>
+                                    </li>
+                                    <li class="page-item" th:if="${result.next}">
+                                        <a class="page-link" th:href="@{/list(page=${result.end+1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword}, category=${pageRequestDTO.category})}">Next</a>
+                                    </li>
+                                </ul>
+							</nav>
+                		</div><!-- End .col-lg-9 -->
+                		<aside class="col-lg-3 order-lg-first">
+
+                		</aside><!-- End .col-lg-3 -->
+                	</div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+<!-- molla/testlist.html  22 Nov 2019 10:02:52 GMT -->
+    </th:block>
+</th:block>
+</html>

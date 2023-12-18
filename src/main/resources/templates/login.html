@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- molla/cart.html  22 Nov 2019 09:55:06 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Molla - Bootstrap eCommerce Template</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/assets/images/icons/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/assets/images/icons/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/icons/favicon-16x16.png}">
+    <link rel="manifest" th:href="@{/assets/images/icons/site.html}">
+    <link rel="mask-icon" th:href="@{/assets/images/icons/safari-pinned-tab.svg}" color="#666666">
+    <link rel="shortcut icon" th:href="@{/assets/images/icons/favicon.ico}">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" th:content="@{/assets/images/icons/browserconfig.xml}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+</head>
+
+<body>
+<!--<div id="header"></div>-->
+<div class="page-wrapper">
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-left">
+                    <div class="header-dropdown">
+                        <a th:href="@{#}">Usd</a>
+                        <div class="header-menu">
+                            <ul>
+                                <li><a th:href="@{#}">Eur</a></li>
+                                <li><a th:href="@{#}">Usd</a></li>
+                            </ul>
+                        </div><!-- End .header-menu -->
+                    </div><!-- End .header-dropdown -->
+
+                    <div class="header-dropdown">
+                        <a th:href="@{#}">Eng</a>
+                        <div class="header-menu">
+                            <ul>
+                                <li><a th:href="@{#}">English</a></li>
+                                <li><a th:href="@{#}">French</a></li>
+                                <li><a th:href="@{#}">Spanish</a></li>
+                            </ul>
+                        </div><!-- End .header-menu -->
+                    </div><!-- End .header-dropdown -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <ul class="top-menu">
+                        <li>
+                            <a th:href="@{#}">Links</a>
+                            <ul>
+                                <li><a th:href="@{tel:#}"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
+                                <li><a th:href="@{/wishlist}"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
+                                <li><a th:href="@{#}">About Us</a></li>
+                                <li><a th:href="@{#}">Contact Us</a></li>
+                                <!--                                <li><a th:href="@{#signin-modal}" data-toggle="modal"><i class="icon-user"></i>Login</a></li>-->
+                            </ul>
+                        </li>
+                    </ul><!-- End .top-menu -->
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-top -->
+
+        <div class="header-middle sticky-header">
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+
+                    <a href="/" class="logo">
+                        <img th:src="@{/assets/images/demo-20/logo-footer.jpg}" alt="Molla Logo" width="105" height="25">
+                    </a>
+
+                    <nav class="main-nav">
+                        <ul class="menu sf-arrows">
+                            <li class="megamenu-container active">
+                                <a th:href="@{/main}">Home</a>
+                            </li>
+                            <li>
+                                <a href="category.html" class="sf-with-ul">서양도서</a>
+                                <div class="megamenu megamenu-sm">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-6">
+                                            <div class="menu-col">
+                                                <div class="menu-title">Shop with sidebar</div><!-- End .menu-title -->
+                                                <ul>
+                                                    <li><a th:href="@{#}">Shop List</a></li>
+                                                    <li><a th:href="@{#}">Shop Grid 2 Columns</a></li>
+                                                    <li><a th:href="@{#}">Shop Grid 3 Columns</a></li>
+                                                    <li><a th:href="@{#}">Shop Grid 4 Columns</a></li>
+                                                    <li><a th:href="@{#}"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
+                                                </ul>
+
+                                                <div class="menu-title">Shop no sidebar</div><!-- End .menu-title -->
+                                                <ul>
+                                                    <li><a th:href="@{#}"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                                                    <li><a th:href="@{#}">Shop Fullwidth No Sidebar</a></li>
+                                                </ul>
+                                            </div><!-- End .menu-col -->
+                                        </div><!-- End .col-md-6 -->
+                                        <div class="col-md-6">
+                                            <div class="menu-col">
+                                                <div class="menu-title">Product Category</div>&lt;!&ndash; End .menu-title &ndash;&gt;
+                                                <ul>
+                                                    <li><a th:href="@{#}">Product Category Boxed</a></li>
+                                                    <li><a th:href="@{#}"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                                                </ul>
+                                                <div class="menu-title">Shop Pages</div>&lt;!&ndash; End .menu-title &ndash;&gt;
+                                                <ul>
+                                                    <li><a th:href="@{/cart}">Cart</a></li>
+                                                    <li><a th:href="@{/checkout}">Checkout</a></li>
+                                                    <li><a th:href="@{/wishlist}">Wishlist</a></li>
+                                                    <li><a th:href="@{dashboard}">My Account</a></li>
+                                                    <li><a th:href="@{#}">Lookbook</a></li>
+                                                </ul>
+                                            </div><!-- End .menu-col -->
+                                        </div><!-- End .col-md-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .megamenu megamenu-md -->
+                            </li>
+                            <li>
+                                <a th:href="product.html" class="sf-with-ul">일본도서</a>
+
+                                <div class="megamenu megamenu-sm">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-6">
+                                            <div class="menu-col">
+                                                <div class="menu-title">Product Details</div><!-- End .menu-title -->
+                                                <ul>
+                                                    <!--                                                    <li><a th:href="#">Default</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Centered</a></li>-->
+                                                    <!--                                                    <li><a th:href="#"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Gallery</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Sticky Info</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Boxed With Sidebar</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Full Width</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Masonry Sticky Info</a></li>-->
+                                                </ul>
+                                            </div><!-- End .menu-col -->
+                                        </div><!-- End .col-md-6 -->
+
+                                        <div class="col-md-6">
+                                            <div class="menu-col">
+                                                <div class="menu-title">Product Details</div><!-- End .menu-title -->
+                                                <ul>
+                                                    <!--                                                    <li><a th:href="#">Default</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Centered</a></li>-->
+                                                    <!--                                                    <li><a th:href="#"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Gallery</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Sticky Info</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Boxed With Sidebar</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Full Width</a></li>-->
+                                                    <!--                                                    <li><a th:href="#">Masonry Sticky Info</a></li>-->
+                                                </ul>
+                                            </div><!-- End .menu-col -->
+                                        </div><!-- End .col-md-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .megamenu megamenu-sm -->
+                            </li>
+                            <li>
+                                <a th:href="@{#}" class="sf-with-ul">문의사항</a>
+
+                                <ul>
+                                    <li>
+                                        <a th:href="@{#}" class="sf-with-ul">About</a>
+
+                                        <ul>
+                                            <li><a th:href="@{#}">About 01</a></li>
+                                            <li><a th:href="@{#}">About 02</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{#}" class="sf-with-ul">Contact</a>
+
+                                        <ul>
+                                            <li><a th:href="@{#}">Contact 01</a></li>
+                                            <li><a th:href="@{#}">Contact 02</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a th:href="@{/login}">Login</a></li>
+                                    <li><a th:href="@{/faq}">FAQs</a></li>
+                                    <li><a th:href="@{/404}">Error 404</a></li>
+                                    <li><a th:href="@{#}">Coming Soon</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a th:href="@{#}" class="sf-with-ul">Bestsellers</a>
+                            </li>
+                            <li>
+                                <a th:href="@{#}" class="sf-with-ul">뭐할지 고민</a>
+
+                                <ul>
+                                    <!--                                    <li><a th:href="#">Products</a></li>-->
+                                    <!--                                    <li><a th:href="#">Typography</a></li>-->
+                                    <!--                                    <li><a th:href="#">Titles</a></li>-->
+                                    <!--                                    <li><a th:href="#">Banners</a></li>-->
+                                    <!--                                    <li><a th:href="#">Product Category</a></li>-->
+                                    <!--                                    <li><a th:href="#">Video Banners</a></li>-->
+                                    <!--                                    <li><a th:href="#">Buttons</a></li>-->
+                                    <!--                                    <li><a th:href="#">Accordions</a></li>-->
+                                    <!--                                    <li><a th:href="#">Tabs</a></li>-->
+                                    <!--                                    <li><a th:href="#">Testimonials</a></li>-->
+                                    <!--                                    <li><a th:href="#">Blog Posts</a></li>-->
+                                    <!--                                    <li><a th:href="#">Portfolio</a></li>-->
+                                    <!--                                    <li><a th:href="#">Call to Action</a></li>-->
+                                    <!--                                    <li><a th:href="#">Icon Boxes</a></li>-->
+                                </ul>
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+                </div><!-- End .header-left -->
+
+                <div class="header-right">
+                    <div class="header-search">
+                        <a th:href="@{#}" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                        <form action="@{#}" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+                    <div class="dropdown compare-dropdown">
+                        <a th:href="@{#}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
+                            <i class="icon-random"></i>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <ul class="compare-products">
+                                <li class="compare-product">
+                                    <a th:href="@{#}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                    <h4 class="compare-product-title"><a th:href="product.html">Blue Night Dress</a></h4>
+                                </li>
+                                <li class="compare-product">
+                                    <a th:href="@{#}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                    <h4 class="compare-product-title"><a th:href="product.html">White Long Skirt</a></h4>
+                                </li>
+                            </ul>
+
+                            <div class="compare-actions">
+                                <a th:href="@{#}" class="action-link">Clear All</a>
+                                <a th:href="@{#}" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
+                            </div>
+                        </div><!-- End .dropdown-menu -->
+                    </div><!-- End .compare-dropdown -->
+
+                    <div class="dropdown cart-dropdown">
+                        <a th:href="@{#}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count">2</span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-cart-products">
+                                <div class="product">
+                                    <div class="product-cart-details">
+                                        <h4 class="product-title">
+                                            <a th:href="product.html">Beige knitted elastic runner shoes</a>
+                                        </h4>
+
+                                        <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span>
+                                                x $84.00
+                                            </span>
+                                    </div><!-- End .product-cart-details -->
+
+                                    <figure class="product-image-container">
+                                        <a th:href="product.html" class="product-image">
+                                            <img th:src="@{/assets/images/products/cart/product-1.jpg}" alt="product">
+                                        </a>
+                                    </figure>
+                                    <a th:href="@{#}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                </div><!-- End .product -->
+
+                                <div class="product">
+                                    <div class="product-cart-details">
+                                        <h4 class="product-title">
+                                            <a th:href="@{/product}">Blue utility pinafore denim dress</a>
+                                        </h4>
+
+                                        <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span>
+                                                x $76.00
+                                            </span>
+                                    </div><!-- End .product-cart-details -->
+
+                                    <figure class="product-image-container">
+                                        <a th:href="@{/product}" class="product-image">
+                                            <img th:src="@{/assets/images/products/cart/product-2.jpg}" alt="product">
+                                        </a>
+                                    </figure>
+                                    <a th:href="@{#}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                </div><!-- End .product -->
+                            </div><!-- End .cart-product -->
+
+                            <div class="dropdown-cart-total">
+                                <span>Total</span>
+
+                                <span class="cart-total-price">$160.00</span>
+                            </div><!-- End .dropdown-cart-total -->
+
+                            <div class="dropdown-cart-action">
+                                <a href="../templates/cart.html" class="btn btn-primary">View Cart</a>
+                                <a href="../templates/checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .dropdown-cart-total -->
+                        </div><!-- End .dropdown-menu -->
+                    </div><!-- End .cart-dropdown -->
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-middle -->
+    </header><!-- End .header -->
+
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/main}">Home</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{#}">Pages</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Login</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('../static/assets/images/backgrounds/login-bg.jpg')">
+            <div class="container">
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                                <th:block th:if="${param.logout != null}">
+                                    <h1>Logout.....</h1>
+                                </th:block>
+                                <form action="/login" method="post" th:if="${param.logout == null}">
+                                    <div class="form-group">
+                                        <label for="singin-email-2">Id *</label>
+                                        <input type="text" class="form-control" id="singin-email-2" name="username" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="singin-password-2">Password *</label>
+                                        <input type="password" class="form-control" id="singin-password-2" name="password" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>LOG IN</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="signin-remember-2">
+                                            <label class="custom-control-label" for="signin-remember-2">Remember Me</label>
+                                        </div><!-- End .custom-checkbox -->
+
+                                        <!--                                        <a th:href="@{#}" class="forgot-link">Forgot Your Password?</a>-->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a th:href="@{#}" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=db4f2e97ddd9e48dfb7a491804c8a29d&redirect_uri=http://localhost:8081/home/member/login/kakao-redirect&response_type=code}" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Kakao
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+                                <form action="/member/join" method="post">
+                                    <div class="form-group">
+                                        <label for="register-email-2">Id *</label>
+                                        <input type="text" class="form-control" id="register-email-2" name="mid" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Password *</label>
+                                        <input type="password" class="form-control" id="register-password-2" name="mpw" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Password *</label>
+                                        <input type="password" class="form-control" id="register-password-2" name="mpw-re" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Name *</label>
+                                        <input type="text" class="form-control" id="register-password-2" name="mname" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Birth *</label>
+                                        <input type="text" class="form-control" id="register-password-2" name="mbirth" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Email *</label>
+                                        <input type="email" class="form-control" id="register-password-2" name="memail" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Tel *</label>
+                                        <input type="text" class="form-control" id="register-password-2" name="mtel" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-group">
+                                        <label for="register-password-2">Address *</label>
+                                        <input type="text" class="form-control" id="register-password-2" name="maddr" required>
+                                    </div><!-- End .form-group -->
+
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
+                                            <label class="custom-control-label" for="register-policy-2">I agree to the <a th:href="@{#}">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a th:href="@{#}" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=db4f2e97ddd9e48dfb7a491804c8a29d&redirect_uri=http://localhost:8081/home/member/login/kakao-redirect&response_type=code}" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Kakao
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .container -->
+        </div><!-- End .login-page section-bg -->
+    </main><!-- End .main -->
+
+    <footer class="footer">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget widget-about">
+                            <img th:src="@{/assets/images/demo-20/logo-footer.jpg}" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+
+                            <div class="social-icons">
+                                <a th:href="@{#}" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                                <a th:href="@{#}" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                                <a th:href="@{#}" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                                <a th:href="@{#}" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                                <a th:href="@{#}" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                            </div><!-- End .soial-icons -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a th:href="@{#}">About Molla</a></li>
+                                <li><a th:href="@{#}">How to shop on Molla</a></li>
+                                <li><a th:href="@{#}">FAQ</a></li>
+                                <li><a th:href="@{#}">Contact us</a></li>
+                                <li><a th:href="@{/login}">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a th:href="@{#}">Payment Methods</a></li>
+                                <li><a th:href="@{#}">Money-back guarantee!</a></li>
+                                <li><a th:href="@{#}">Returns</a></li>
+                                <li><a th:href="@{#}">Shipping</a></li>
+                                <li><a th:href="@{#}">Terms and conditions</a></li>
+                                <li><a th:href="@{#}">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a th:href="@{#}">Sign In</a></li>
+                                <li><a th:href="@{/cart}">View Cart</a></li>
+                                <li><a th:href="@{#}">My Wishlist</a></li>
+                                <li><a th:href="@{#}">Track My Order</a></li>
+                                <li><a th:href="@{#}">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+                <figure class="footer-payments">
+                    <img th:src="@{/assets/images/payments.png}" alt="Payment methods" width="272" height="20">
+                </figure><!-- End .footer-payments -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!-- Plugins JS File -->
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/assets/js/jquery.hoverIntent.min.js}"></script>
+<script th:src="@{/assets/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/assets/js/superfish.min.js}"></script>
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<!-- Main JS File -->
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+
+
+<!-- molla/login.html  22 Nov 2019 10:04:03 GMT -->
+</html>
